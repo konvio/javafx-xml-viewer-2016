@@ -1,0 +1,8 @@
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TableView?>
+
+<VBox fx:controller="com.konv.xmlviewer.Controller"
+      xmlns:fx="http://javafx.com/fxml">
+
+    <TableView fx:id="mTableView" VBox.vgrow="ALWAYS"/>
+</VBox>
