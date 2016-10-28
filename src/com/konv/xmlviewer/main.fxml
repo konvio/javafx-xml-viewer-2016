@@ -1,8 +1,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.TableView?>
 
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Button?>
 <VBox fx:controller="com.konv.xmlviewer.Controller"
       xmlns:fx="http://javafx.com/fxml">
 
     <TableView fx:id="mTableView" VBox.vgrow="ALWAYS"/>
+
+    <ToolBar>
+        <Button text="Open" onMouseClicked="#open"/>
+    </ToolBar>
 </VBox>
