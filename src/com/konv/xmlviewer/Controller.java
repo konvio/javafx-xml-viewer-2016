@@ -8,16 +8,25 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.w3c.dom.Document;
+import org.w3c.dom.Text;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Result;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import java.awt.*;
 import java.io.File;
 import java.util.List;
 
@@ -30,21 +39,49 @@ public class Controller {
     private FileChooser mFileChooser;
 
     @FXML
+    private TextField mTitleField;
+    @FXML
+    private TextField mAuthorField;
+    @FXML
+    private TextField mAnnotationField;
+    @FXML
+    private TextField mReaderField;
+    @FXML
+    private TextField mPrice;
+
+    @FXML
     private void initialize() {
         initTableView();
         initExtractor();
         initFileChooser();
+        mPrice.getText();
     }
 
     @FXML
     private void open() {
         File file = mFileChooser.showOpenDialog(new Stage());
+        open(file);
+    }
+
+    private void open(File file) {
+        if (file != null) {
+            try {
+                List<BookModel> books = mExtractor.extract(file);
+                mItems.clear();
+                mItems.addAll(books);
+            } catch (Exception e) {
+                DialogUtils.showAlert(Alert.AlertType.INFORMATION, "XML Viewer", "Invalid file structure", e.getLocalizedMessage());
+            }
+        }
+    }
+
+    @FXML
+    private void browse() {
         try {
-            List<BookModel> books = mExtractor.extract(file);
-            mItems.clear();
-            mItems.addAll(books);
+            File result = new File("C:/Users/konv/Desktop/books.html");
+            XmlUtils.transformToHtml(mItems, result);
+            Desktop.getDesktop().open(result);
         } catch (Exception e) {
-            System.out.println(e);
         }
     }
 
@@ -70,6 +107,8 @@ public class Controller {
 
         mTableView.getColumns().addAll(isbnColumn, titleColumn, authorColumn, annotationColumn,
                 readerColumn, priceColumn);
+
+        for (TableColumn tableColumn : mTableView.getColumns()) tableColumn.setPrefWidth(100);
 
         mTableView.setItems(mItems);
     }

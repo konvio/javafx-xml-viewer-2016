@@ -1,14 +1,21 @@
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.TableView?>
-
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.control.Button?>
 <VBox fx:controller="com.konv.xmlviewer.Controller"
       xmlns:fx="http://javafx.com/fxml">
 
     <TableView fx:id="mTableView" VBox.vgrow="ALWAYS"/>
 
+    <HBox>
+        <TextField fx:id="mTitleField" prefWidth="120" promptText="Title"/>
+        <TextField fx:id="mAuthorField" prefWidth="120" promptText="Author"/>
+        <TextField fx:id="mAnnotationField" prefWidth="120" promptText="Annotation"/>
+        <TextField fx:id="mReaderField" prefWidth="120" promptText="Reader"/>
+        <TextField fx:id="mPrice" prefWidth="120" promptText="Price"/>
+    </HBox>
+
     <ToolBar>
         <Button text="Open" onMouseClicked="#open"/>
+        <Button text="View in browser" onMouseClicked="#browse"/>
     </ToolBar>
 </VBox>

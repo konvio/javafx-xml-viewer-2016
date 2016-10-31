@@ -2,10 +2,8 @@ package com.konv.xmlviewer;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class DialogUtils {
 
@@ -15,8 +13,8 @@ public class DialogUtils {
         alert.setHeaderText(header);
         alert.setContentText(content);
 
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image(Main.class.getResourceAsStream("dolphin.png")));
+//        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+//        stage.getIcons().add(new Image(Main.class.getResourceAsStream("dolphin.png")));
 
         alert.showAndWait();
     }
@@ -37,9 +35,6 @@ public class DialogUtils {
         VBox.setVgrow(textArea, Priority.ALWAYS);
         alert.getDialogPane().setExpandableContent(new VBox(textArea));
         alert.getDialogPane().setExpanded(true);
-
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image(Main.class.getResourceAsStream("dolphin.png")));
 
         alert.showAndWait();
     }
