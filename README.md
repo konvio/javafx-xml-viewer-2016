@@ -18,7 +18,7 @@ Table entries can be filtered by typing text in corresponding text fields.
 ##HTML Transformation
 ![transformation](http://i.imgur.com/8toTcg3.png)
 
-The content can be transformed via XSTL to HTML and opened via browser.
+The content can be transformed via XSLT to HTML and opened via browser.
 
 ######Copyright © 2016 by Vitaliy Kononenko, K-24
 
