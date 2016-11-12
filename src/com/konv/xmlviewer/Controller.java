@@ -2,33 +2,29 @@ package com.konv.xmlviewer;
 
 import com.konv.xmlviewer.extractors.Extractor;
 import com.konv.xmlviewer.extractors.JaxbExtractor;
+import com.konv.xmlviewer.extractors.JsonExtractor;
 import com.konv.xmlviewer.model.BookModel;
 import com.konv.xmlviewer.model.LibraryModel;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.w3c.dom.Document;
-import org.w3c.dom.Text;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Result;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 import java.awt.*;
 import java.io.File;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Controller {
 
@@ -37,6 +33,7 @@ public class Controller {
     private final ObservableList<BookModel> mItems = FXCollections.observableArrayList();
     private Extractor mExtractor;
     private FileChooser mFileChooser;
+    private File mFile;
 
     @FXML
     private TextField mTitleField;
@@ -47,14 +44,13 @@ public class Controller {
     @FXML
     private TextField mReaderField;
     @FXML
-    private TextField mPrice;
+    private TextField mPriceField;
 
     @FXML
     private void initialize() {
         initTableView();
         initExtractor();
         initFileChooser();
-        mPrice.getText();
     }
 
     @FXML
@@ -63,12 +59,20 @@ public class Controller {
         open(file);
     }
 
+    @FXML
+    private void refresh() {
+        open(mFile);
+    }
+
     private void open(File file) {
         if (file != null) {
             try {
-                List<BookModel> books = mExtractor.extract(file);
+                List<BookModel> books;
+                if (file.getName().endsWith(".json")) books = new JsonExtractor().extract(file);
+                else books = mExtractor.extract(file);
                 mItems.clear();
-                mItems.addAll(books);
+                mItems.addAll(filter(books));
+                mFile = file;
             } catch (Exception e) {
                 DialogUtils.showAlert(Alert.AlertType.INFORMATION, "XML Viewer", "Invalid file structure", e.getLocalizedMessage());
             }
@@ -129,6 +133,46 @@ public class Controller {
         mFileChooser.setTitle("XML Viewer");
         mFileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         mFileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"),
-                new FileChooser.ExtensionFilter("XML", "*.xml"));
+                new FileChooser.ExtensionFilter("XML", "*.xml"), new FileChooser.ExtensionFilter("JSON", "*.json"));
+    }
+
+    @FXML
+    private void showAbout() {
+        DialogUtils.showAlert(Alert.AlertType.INFORMATION, "About", null,
+                "XML Viewer\n\n" + "Copyright © 2016 by Vitaliy Kononenko\nK-24");
+    }
+
+    public List<BookModel> filter(List<BookModel> source) {
+        Predicates predicates = new Predicates();
+        return source.stream()
+                .filter(predicates.titlePredicate)
+                .filter(predicates.authorPredicate)
+                .filter(predicates.readerPredicate)
+                .filter(predicates.annotationsPredicate)
+                .filter(predicates.pricePredicate)
+                .collect(Collectors.toList());
+    }
+
+    public class Predicates {
+        Predicate<BookModel> titlePredicate = bookModel ->
+                contains(bookModel.getTitle(), mTitleField.getText());
+        Predicate<BookModel> authorPredicate = bookModel ->
+                contains(bookModel.getAuthor(), mAuthorField.getText());
+        Predicate<BookModel> readerPredicate = bookModel ->
+                contains(bookModel.getReader(), mReaderField.getText());
+        Predicate<BookModel> annotationsPredicate = bookModel ->
+                contains(bookModel.getAnnotation(), mAnnotationField.getText());
+        Predicate<BookModel> pricePredicate = bookModel -> {
+            try {
+                double d = Double.parseDouble(mPriceField.getText());
+                return bookModel.getPrice() > d;
+            } catch (Exception e) {
+                return true;
+            }
+        };
+
+        private boolean contains(String text, String word) {
+            return "".equals(word) || text.toLowerCase().contains(word.toLowerCase());
+        }
     }
 }

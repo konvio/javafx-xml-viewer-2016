@@ -1,0 +1,46 @@
+[
+  {
+  	"isbn":43532,
+  	"title":"In Search of Lost Time",
+  	"author":"Marcel Proust",
+  	"annotation":"Was published in 1913.",
+  	"reader":"Serhio",
+  	"price":"420" 
+  },
+
+  {
+  	"isbn":67432,
+  	"title":"Ulysses",
+  	"author":"James Joyce",
+  	"annotation":"Ulysses chronicles the passage of Leopold Bloom through Dublin during an ordinary day, June 16, 1904.",
+  	"reader":"Jessie",
+  	"price":"585" 
+  },
+
+  {
+  	"isbn":23543,
+  	"title":"Don Quixote",
+  	"author":"Miguel de Cervantes",
+  	"annotation":"Alonso Quixano, a retired country gentleman in his fifties, lives in an unnamed section of La Mancha with his niece and a housekeeper.",
+  	"reader":"James",
+  	"price":"320" 
+  },
+
+  {
+  	"isbn":64234,
+  	"title":"Moby Dick",
+  	"author":"Herman Melville",
+  	"annotation":"First published in 1851.",
+  	"reader":"In stock",
+  	"price":"470" 
+  },
+
+  {
+  	"isbn":43532,
+  	"title":"Hamlet",
+  	"author":"William Shakespeare",
+  	"annotation":"The Tragedy of Hamlet, Prince of Denmark.",
+  	"reader":"Katty",
+  	"price":"380" 
+  }
+]

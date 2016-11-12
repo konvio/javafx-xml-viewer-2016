@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<library>
+    <book>
+        <annotation>Was published in 1913.</annotation>
+        <author>Marcel Proust</author>
+        <isbn>43532</isbn>
+        <price>420</price>
+        <reader>Serhio</reader>
+        <title>In Search of Lost Time</title>
+    </book>
+    <book>
+        <annotation>Ulysses chronicles the passage of Leopold Bloom through Dublin during an ordinary day, June 16, 1904.</annotation>
+        <author>James Joyce</author>
+        <isbn>67432</isbn>
+        <price>585</price>
+        <reader>Jessie</reader>
+        <title>Ulysses</title>
+    </book>
+    <book>
+        <annotation>Alonso Quixano, a retired country gentleman in his fifties, lives in an unnamed section of La Mancha with his niece and a housekeeper.</annotation>
+        <author>Miguel de Cervantes</author>
+        <isbn>23543</isbn>
+        <price>320</price>
+        <reader>James</reader>
+        <title>Don Quixote</title>
+    </book>
+    <book>
+        <annotation>First published in 1851.</annotation>
+        <author>Herman Melville</author>
+        <isbn>64234</isbn>
+        <price>470</price>
+        <reader>In stock</reader>
+        <title>Moby Dick</title>
+    </book>
+    <book>
+        <annotation>The Tragedy of Hamlet, Prince of Denmark.</annotation>
+        <author>William Shakespeare</author>
+        <isbn>43532</isbn>
+        <price>380</price>
+        <reader>Katty</reader>
+        <title>Hamlet</title>
+    </book>
+</library>

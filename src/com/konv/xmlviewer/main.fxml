@@ -4,18 +4,21 @@
 <VBox fx:controller="com.konv.xmlviewer.Controller"
       xmlns:fx="http://javafx.com/fxml">
 
+    <MenuBar fx:id="mMenuBar"/>
+
     <TableView fx:id="mTableView" VBox.vgrow="ALWAYS"/>
 
     <HBox>
-        <TextField fx:id="mTitleField" prefWidth="120" promptText="Title"/>
-        <TextField fx:id="mAuthorField" prefWidth="120" promptText="Author"/>
-        <TextField fx:id="mAnnotationField" prefWidth="120" promptText="Annotation"/>
-        <TextField fx:id="mReaderField" prefWidth="120" promptText="Reader"/>
-        <TextField fx:id="mPrice" prefWidth="120" promptText="Price"/>
+        <TextField fx:id="mTitleField" prefWidth="120" promptText="Title" onAction="#refresh"/>
+        <TextField fx:id="mAuthorField" prefWidth="120" promptText="Author" onAction="#refresh"/>
+        <TextField fx:id="mAnnotationField" prefWidth="120" promptText="Annotation" onAction="#refresh"/>
+        <TextField fx:id="mReaderField" prefWidth="120" promptText="Reader" onAction="#refresh"/>
+        <TextField fx:id="mPriceField" prefWidth="120" promptText="Minimal Price" onAction="#refresh"/>
     </HBox>
 
     <ToolBar>
         <Button text="Open" onMouseClicked="#open"/>
         <Button text="View in browser" onMouseClicked="#browse"/>
+        <Button text="About" onMouseClicked="#showAbout"/>
     </ToolBar>
 </VBox>
